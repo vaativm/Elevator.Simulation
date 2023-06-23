@@ -64,6 +64,53 @@ public class Elevator
         PeopleCount = 0;
     }
 
+    public void MoveTo(int destinationFloor, int lastFloor)
+    {
+        if (destinationFloor > lastFloor || destinationFloor < 0)
+            throw new ArgumentOutOfRangeException($"Invalid floor. Floor number should be in the range of [{0} - {lastFloor}]");
+
+        if (CurrentFloor == destinationFloor)
+        {
+            Thread.Sleep(1000);
+        }
+        else if (CurrentFloor < destinationFloor)
+        {
+            Console.WriteLine($"Elevator {Number} is {Status.Moving} {Direction.Up} to floor number {destinationFloor}");
+
+            CurrentStatus = Status.Moving;
+            CurrentDirection = Direction.Up;
+
+            for (int f = CurrentFloor; f <= destinationFloor; f++)
+            {
+                Console.WriteLine($"Now at floor: {f}");
+
+                Thread.Sleep(1000);
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Elevator {Number} is {Status.Moving} {Direction.Down} to floor {destinationFloor}");
+
+            CurrentStatus = Status.Moving;
+            CurrentDirection = Direction.Down;
+
+            for (int f = CurrentFloor; destinationFloor <= f; f--)
+            {
+                Console.WriteLine($"Now at floor: {f}");
+
+                Thread.Sleep(1000);
+            }
+        }
+        
+        CurrentFloor = destinationFloor;
+
+        if (CurrentFloor == lastFloor)
+            CurrentDirection = Direction.Down;
+
+        if (CurrentFloor == 0)
+            CurrentDirection = Direction.Up;
+    }
+
     public enum Direction
     {
         Up = 1,
