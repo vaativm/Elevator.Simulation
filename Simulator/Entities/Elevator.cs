@@ -38,6 +38,32 @@ public class Elevator
         IsOpen= false;
     }
 
+    public void Load(int people)
+    {
+        if (people < 0 || people > WEIGHTLIMIT)
+            throw new ArgumentOutOfRangeException("Enter a number in the range of [0 - 8]");
+
+        Console.WriteLine($"Elevator {Number} is loading");
+        CurrentStatus = Status.Loading;
+
+        Thread.Sleep(1000);
+
+        PeopleCount = people;
+    }
+
+    public void Offload()
+    {
+        if (PeopleCount == 0)
+            return;
+
+        Console.WriteLine($"Elevator {Number} is offloading");
+        CurrentStatus = Status.Offloading;
+
+        Thread.Sleep(1000);
+
+        PeopleCount = 0;
+    }
+
     public enum Direction
     {
         Up = 1,
@@ -49,6 +75,7 @@ public class Elevator
         Opening,
         Open,
         Loading,
+        Offloading,
         Moving,
         Closing,
         Closed
