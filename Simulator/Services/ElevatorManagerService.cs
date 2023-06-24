@@ -149,7 +149,7 @@ public class ElevatorManagerService: IElevatorManagerService
         return destinationFloor;
     }
 
-    private void Load(Elevator elevator)
+    private void LoadPeople(Elevator elevator)
     {
         bool ok = false;
         do
@@ -176,7 +176,7 @@ public class ElevatorManagerService: IElevatorManagerService
         elevator!.MoveTo(callingFloor, lastFloor);
         elevator!.Open();
         elevator.Offload();
-        Load(elevator);
+        LoadPeople(elevator);
         elevator.Close();
 
         var destinationFloor = GetDestinationFloor(building, "Enter your destination floor");
