@@ -1,9 +1,10 @@
 ﻿using Simulator.Entities;
+using Simulator.Interfaces;
 using System.Text;
 
 namespace Simulator.Services;
 
-public class ElevatorManagerService
+public class ElevatorManagerService: IElevatorManagerService
 {
     private (int, int) GetConfigSettings()
     {
@@ -63,7 +64,7 @@ public class ElevatorManagerService
         return (building, floors);
     }
 
-    public void DisplayFloorNumbers(Building building)
+    public void DisplaySettings(Building building)
     {
         Console.WriteLine("------------------");
         Console.WriteLine($"Floors: [0 to {building.Floors - 1}]");

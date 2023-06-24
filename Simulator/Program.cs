@@ -1,16 +1,18 @@
-﻿using Simulator.Services;
+﻿using Simulator.Interfaces;
+using Simulator.Services;
 
 Console.WriteLine("Configure settings");
 Console.WriteLine("------------------");
 
-var elevatorManager = new ElevatorManagerService();
+IElevatorManagerService _elevatorManager;
+_elevatorManager = new ElevatorManagerService();
 
-var (building, floors) = elevatorManager.ConfigureSettings();
-elevatorManager.DisplayFloorNumbers(building);
+var (building, floors) = _elevatorManager.ConfigureSettings();
+_elevatorManager.DisplaySettings(building);
 
 var lastFloor = floors - 1;
 
 while (true)
 {
-    elevatorManager.RequestElevator(building,lastFloor);
+    _elevatorManager.RequestElevator(building,lastFloor);
 }

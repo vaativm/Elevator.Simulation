@@ -72,7 +72,7 @@ public class Elevator
         else if (CurrentFloor < destinationFloor)
         {
             IsAvailable = false;
-            Console.WriteLine($"Elevator {Number} is {Status.Moving} {Direction.Up} to floor number {destinationFloor} with {PeopleCount} people onboard");
+            Console.WriteLine($"Elevator {Number} is moving {Direction.Up} to floor number {destinationFloor} with {PeopleCount} people onboard");
 
             IsMoving = true;
             CurrentDirection = Direction.Up;
@@ -87,7 +87,7 @@ public class Elevator
         else
         {
             IsAvailable = false;
-            Console.WriteLine($"Elevator {Number} is {Status.Moving} {Direction.Down} to floor {destinationFloor} with {PeopleCount} people onboard");
+            Console.WriteLine($"Elevator {Number} is moving {Direction.Down} to floor {destinationFloor} with {PeopleCount} people onboard");
 
             IsMoving = true;
             CurrentDirection = Direction.Down;
@@ -113,16 +113,5 @@ public class Elevator
     {
         Up = 1,
         Down
-    }
-
-    public enum Status
-    {
-        Opening,
-        Open,
-        Loading,
-        Offloading,
-        Moving,
-        Closing,
-        Closed
     }
 }
