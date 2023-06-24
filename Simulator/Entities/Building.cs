@@ -47,4 +47,9 @@ public class Building
 
         return elevator;
     }
+
+    public bool HasFloor(int number)
+    {
+        return number >= 0 && number < Floors;
+    }
 }

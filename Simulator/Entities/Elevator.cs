@@ -8,7 +8,6 @@ public class Elevator
     public bool IsMoving { get; set; } = false;
     public bool IsOpen { get; set; } = false;
     public bool IsAvailable { get; set; } = true;
-    public Status CurrentStatus { get; set; } = Status.Closed;
     public Direction CurrentDirection { get; set; } = Direction.Up;
     public int CurrentFloor { get; set; } = 0;
     public int PeopleCount { get; set; } = 0;
@@ -21,7 +20,6 @@ public class Elevator
     public void Open()
     {
         Console.WriteLine($"Elevator {Number} is opening");
-        CurrentStatus = Status.Opening;
 
         Thread.Sleep(1000);
 
@@ -31,7 +29,6 @@ public class Elevator
     public void Close()
     {
         Console.WriteLine($"Elevator {Number} is closing");
-        CurrentStatus = Status.Closing;
 
         Thread.Sleep(1000);
 
@@ -44,7 +41,6 @@ public class Elevator
             throw new ArgumentOutOfRangeException("Enter a number in the range of [0 - 8]");
 
         Console.WriteLine($"Elevator {Number} is loading");
-        CurrentStatus = Status.Loading;
 
         Thread.Sleep(1000);
 
@@ -57,7 +53,6 @@ public class Elevator
             return;
 
         Console.WriteLine($"Elevator {Number} is offloading");
-        CurrentStatus = Status.Offloading;
 
         Thread.Sleep(1000);
 
@@ -71,13 +66,15 @@ public class Elevator
 
         if (CurrentFloor == destinationFloor)
         {
+            IsAvailable = false;
             Thread.Sleep(1000);
         }
         else if (CurrentFloor < destinationFloor)
         {
-            Console.WriteLine($"Elevator {Number} is {Status.Moving} {Direction.Up} to floor number {destinationFloor}");
+            IsAvailable = false;
+            Console.WriteLine($"Elevator {Number} is {Status.Moving} {Direction.Up} to floor number {destinationFloor} with {PeopleCount} people onboard");
 
-            CurrentStatus = Status.Moving;
+            IsMoving = true;
             CurrentDirection = Direction.Up;
 
             for (int f = CurrentFloor; f <= destinationFloor; f++)
@@ -89,9 +86,10 @@ public class Elevator
         }
         else
         {
-            Console.WriteLine($"Elevator {Number} is {Status.Moving} {Direction.Down} to floor {destinationFloor}");
+            IsAvailable = false;
+            Console.WriteLine($"Elevator {Number} is {Status.Moving} {Direction.Down} to floor {destinationFloor} with {PeopleCount} people onboard");
 
-            CurrentStatus = Status.Moving;
+            IsMoving = true;
             CurrentDirection = Direction.Down;
 
             for (int f = CurrentFloor; destinationFloor <= f; f--)
